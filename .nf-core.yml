@@ -1,0 +1,17 @@
+repository_type: pipeline
+
+nf_core_version: 4.1.0
+
+lint: {}
+
+template:
+  org: nf-core
+  name: demuxclassifymetabarcodes
+  description: Demultiplex and classify metabarcode sample reads.
+  author: amnalert
+  version: 1.0.0dev
+  force: true
+  outdir: .
+  skip_features:
+    - gpu
+  is_nfcore: true
