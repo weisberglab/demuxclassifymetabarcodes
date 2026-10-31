@@ -1,0 +1,7 @@
+channels:
+- conda-forge
+- bioconda
+dependencies:
+- bioconda::cutadapt=5.2
+- conda-forge::pandas=3.0.2
+- conda-forge::python=3.11.0
