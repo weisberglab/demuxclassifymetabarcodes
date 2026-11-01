@@ -204,12 +204,12 @@ workflow DEMUXCLASSIFYMETABARCODES {
 
     // mix output channels, group by meta, then group by dbname
     emu_sankey = emu_out.report
-                    .mix(emu_out.assignment_report).groupTuple(by: 0)
-                    .map{ _meta, report, dbname, _db, areport -> tuple(dbname, report, areport)}.groupTuple(by: 0)
+                    .join(emu_out.assignment_report) // tuple(meta, reports, dbname, dbloc, areports)
+                    .map{ _meta, reports, dbname, _db, areports -> tuple(dbname, reports, areports)}.groupTuple(by: 0) 
 
     SANKEYPLOTEMU(
-        emu_sankey,
-        channel.value(params.name),
+        emu_sankey, // tuple(dbname, all_reports_for_that_db, all_read_assignments_for_that_db)
+        channel.value(params.trace_report_suffix),
         channel.value(file("${projectDir}/modules/local/sankeyplotemu/plot_sankey.py")),
         channel.value(file("${projectDir}/modules/local/sankeyplotemu/combine_sankey.py"))
     )

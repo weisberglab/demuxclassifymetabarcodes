@@ -12,7 +12,7 @@ process EMU_ABUNDANCE {
     tuple path(db), val(db_name)
 
     output:
-    tuple val(meta), path("${prefix}_rel-abundance.tsv"), val(db_name), path(db)  , emit: report
+    tuple val(meta), path("${prefix}_rel-abundance.tsv"), val(db_name), path(db), emit: report
     tuple val(meta), path("${prefix}_read-assignment-distributions.tsv"), emit: assignment_report, optional: true
     tuple val(meta), path("${prefix}_emu_alignments.sam")               , emit: samfile          , optional: true
     tuple val(meta), path("${prefix}_unclassified_mapped.*")            , emit: unclassified     , optional: true
@@ -29,7 +29,6 @@ process EMU_ABUNDANCE {
     emu \\
         abundance \\
         ${args} \\
-        --keep-read-assignments \\
         --threads ${task.cpus} \\
         --db ${db} \\
         --output-basename ${prefix} \\
